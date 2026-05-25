@@ -4,7 +4,8 @@
 
 set -euo pipefail
 
-INSTALL_DIR="/mnt/c/Program Files (x86)/DriveKit"
+WIN_USER=$(powershell.exe -NoProfile -Command '$env:USERNAME' 2>/dev/null | tr -d '\r')
+INSTALL_DIR="/mnt/c/Users/$WIN_USER/AppData/Local/DriveKit"
 
 echo "Building drivekit-importer.exe..."
 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w -H=windowsgui" -o drivekit-importer.exe .
