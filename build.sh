@@ -4,9 +4,13 @@
 
 set -euo pipefail
 
+INSTALL_DIR="/mnt/c/Program Files (x86)/DriveKit"
+
 echo "Building drivekit-importer.exe..."
 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w -H=windowsgui" -o drivekit-importer.exe .
 echo "Done → drivekit-importer.exe"
-echo ""
-echo "Drop the .exe anywhere and double-click to run."
-echo "It will open your browser automatically at http://localhost:7432"
+
+echo "Installing to \"$INSTALL_DIR\"..."
+mkdir -p "$INSTALL_DIR"
+cp drivekit-importer.exe "$INSTALL_DIR/drivekit-importer.exe"
+echo "Installed → $INSTALL_DIR/drivekit-importer.exe"
