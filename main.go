@@ -677,6 +677,46 @@ const frontendHTML = `<!DOCTYPE html>
     border-color: var(--border2);
   }
   .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+  .btn-danger {
+    background: transparent;
+    color: var(--error);
+    border-color: var(--error);
+    opacity: 0.7;
+  }
+  .btn-danger:hover { opacity: 1; }
+
+  /* ── Quit modal ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    padding: 28px 32px;
+    max-width: 340px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .modal-title {
+    font-family: var(--font-h);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--error);
+  }
+  .modal-body { color: var(--muted); font-size: 13px; line-height: 1.6; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 
   /* ── Divider ── */
   hr { border: none; border-top: 1px solid var(--border); }
@@ -687,7 +727,20 @@ const frontendHTML = `<!DOCTYPE html>
   <header>
     <div class="logo">Drive<span>Kit</span></div>
     <div class="badge">Setup Importer</div>
+    <button class="btn btn-danger" style="margin-left:auto" onclick="openQuitModal()">Quit</button>
   </header>
+
+  <!-- Quit confirmation modal -->
+  <div id="quitModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-title">Quit DriveKit?</div>
+      <div class="modal-body">The app will stop running and close. You can relaunch it any time.</div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeQuitModal()">Cancel</button>
+        <button class="btn btn-danger" onclick="confirmQuit()">Quit</button>
+      </div>
+    </div>
+  </div>
 
   <main>
     <!-- Setups folder -->
@@ -746,6 +799,15 @@ const processing     = document.getElementById('processing');
 const processingMsg  = document.getElementById('processingMsg');
 const resultsEl      = document.getElementById('results');
 const overwriteToggle= document.getElementById('overwriteToggle');
+
+// ── Quit ──────────────────────────────────────────────────────────────────
+
+function openQuitModal()  { document.getElementById('quitModal').classList.add('open'); }
+function closeQuitModal() { document.getElementById('quitModal').classList.remove('open'); }
+async function confirmQuit() {
+  try { await fetch('/quit', { method: 'POST' }); } catch(_) {}
+  window.close();
+}
 
 // ── Folder detection ──────────────────────────────────────────────────────
 
@@ -906,6 +968,14 @@ func main() {
 	})
 	mux.HandleFunc("/detect-folder", handleDetectFolder)
 	mux.HandleFunc("/import", handleImport)
+	mux.HandleFunc("/quit", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.NotFound(w, r)
+			return
+		}
+		w.WriteHeader(http.StatusNoContent)
+		go func() { os.Exit(0) }()
+	})
 
 	l, err := net.Listen("tcp", "127.0.0.1:7432")
 	if err != nil {
