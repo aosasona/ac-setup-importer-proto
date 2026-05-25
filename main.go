@@ -489,7 +489,6 @@ const frontendHTML = `<!DOCTYPE html>
     position: absolute;
     top: 2px; left: 2px;
     width: 12px; height: 12px;
-    border-radius: 50%;
     background: var(--muted);
     transition: transform 0.2s, background 0.2s;
   }
