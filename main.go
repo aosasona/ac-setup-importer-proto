@@ -393,7 +393,7 @@ const frontendHTML = `<!DOCTYPE html>
     color: var(--muted);
     padding: 3px 8px;
     border: 1px solid var(--border2);
-    border-radius: 3px;
+    border-radius: 0;
   }
 
   /* ── Main content ── */
@@ -429,7 +429,7 @@ const frontendHTML = `<!DOCTYPE html>
     flex: 1;
     background: var(--surface);
     border: 1px solid var(--border2);
-    border-radius: 4px;
+    border-radius: 0;
     color: var(--text);
     font-family: var(--font-m);
     font-size: 12px;
@@ -471,7 +471,7 @@ const frontendHTML = `<!DOCTYPE html>
     appearance: none;
     width: 32px; height: 18px;
     border: 1px solid var(--border2);
-    border-radius: 9px;
+    border-radius: 0;
     background: var(--surface);
     cursor: pointer;
     position: relative;
@@ -499,7 +499,7 @@ const frontendHTML = `<!DOCTYPE html>
   /* ── Drop zone ── */
   .dropzone {
     border: 1.5px dashed var(--border2);
-    border-radius: 8px;
+    border-radius: 0;
     padding: 48px 32px;
     display: flex;
     flex-direction: column;
@@ -553,7 +553,7 @@ const frontendHTML = `<!DOCTYPE html>
     padding: 14px 18px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 0;
     font-size: 12px;
     color: var(--muted);
   }
@@ -574,7 +574,7 @@ const frontendHTML = `<!DOCTYPE html>
   .result-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 0;
     overflow: hidden;
     animation: slideIn 0.2s ease;
   }
@@ -609,7 +609,7 @@ const frontendHTML = `<!DOCTYPE html>
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 2px 8px;
-    border-radius: 3px;
+    border-radius: 0;
     flex-shrink: 0;
   }
   .pill.ok   { background: color-mix(in srgb, var(--success) 15%, transparent); color: var(--success); }
@@ -642,7 +642,7 @@ const frontendHTML = `<!DOCTYPE html>
   .file-chip {
     font-size: 10px;
     padding: 2px 8px;
-    border-radius: 3px;
+    border-radius: 0;
     border: 1px solid var(--border2);
     color: var(--text);
     opacity: 0.75;
@@ -660,7 +660,7 @@ const frontendHTML = `<!DOCTYPE html>
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 8px 18px;
-    border-radius: 4px;
+    border-radius: 0;
     border: 1px solid transparent;
     cursor: pointer;
     transition: all 0.15s;
@@ -699,7 +699,7 @@ const frontendHTML = `<!DOCTYPE html>
   .modal {
     background: var(--surface);
     border: 1px solid var(--border2);
-    border-radius: 6px;
+    border-radius: 0;
     padding: 28px 32px;
     max-width: 340px;
     width: 100%;
