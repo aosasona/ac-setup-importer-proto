@@ -979,7 +979,7 @@ func main() {
 			return
 		}
 		w.WriteHeader(http.StatusNoContent)
-		go func() { os.Exit(0) }()
+		go quitApp()
 	})
 
 	l, err := net.Listen("tcp", "127.0.0.1:7432")
@@ -987,13 +987,15 @@ func main() {
 		log.Fatalf("Could not bind port 7432: %v\n(Is another instance already running?)", err)
 	}
 
-	url := "http://localhost:7432"
-	fmt.Println("┌─────────────────────────────────────────┐")
-	fmt.Println("│   DriveKit Setup Importer               │")
-	fmt.Printf("│   %s                      │\n", url)
-	fmt.Println("│   Ctrl+C to quit                        │")
-	fmt.Println("└─────────────────────────────────────────┘")
+	go func() {
+		url := "http://localhost:7432"
+		fmt.Println("┌─────────────────────────────────────────┐")
+		fmt.Println("│   DriveKit Setup Importer               │")
+		fmt.Printf("│   %s                      │\n", url)
+		fmt.Println("└─────────────────────────────────────────┘")
+		go openBrowser(url)
+		log.Fatal(http.Serve(l, mux))
+	}()
 
-	go openBrowser(url)
-	log.Fatal(http.Serve(l, mux))
+	startTray()
 }
