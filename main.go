@@ -385,6 +385,12 @@ const frontendHTML = `<!DOCTYPE html>
     color: var(--text);
     font-weight: 500;
   }
+  .logo-sub {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
   .badge {
     font-size: 10px;
     font-weight: 600;
@@ -725,15 +731,14 @@ const frontendHTML = `<!DOCTYPE html>
 <body>
 <div class="shell">
   <header>
-    <div class="logo">Drive<span>Kit</span></div>
-    <div class="badge">Setup Importer</div>
+    <div class="logo">Drive<span>Kit</span> <span class="logo-sub">Setup Importer</span></div>
     <button class="btn btn-danger" style="margin-left:auto" onclick="openQuitModal()">Quit</button>
   </header>
 
   <!-- Quit confirmation modal -->
   <div id="quitModal" class="modal-overlay">
     <div class="modal">
-      <div class="modal-title">Quit DriveKit?</div>
+      <div class="modal-title">Quit Setup Importer?</div>
       <div class="modal-body">The app will stop running and close. You can relaunch it any time.</div>
       <div class="modal-actions">
         <button class="btn btn-ghost" onclick="closeQuitModal()">Cancel</button>
@@ -984,7 +989,7 @@ func main() {
 
 	url := "http://localhost:7432"
 	fmt.Println("┌─────────────────────────────────────────┐")
-	fmt.Println("│   DriveKit  ·  Setup Importer           │")
+	fmt.Println("│   DriveKit Setup Importer               │")
 	fmt.Printf("│   %s                      │\n", url)
 	fmt.Println("│   Ctrl+C to quit                        │")
 	fmt.Println("└─────────────────────────────────────────┘")
