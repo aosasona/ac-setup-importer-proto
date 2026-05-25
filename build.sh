@@ -5,7 +5,7 @@
 set -euo pipefail
 
 WIN_USER=$(powershell.exe -NoProfile -Command '$env:USERNAME' 2>/dev/null | tr -d '\r')
-INSTALL_DIR="/mnt/c/Users/$WIN_USER/AppData/Local/DriveKit"
+INSTALL_DIR="/mnt/c/Users/$WIN_USER/AppData/Local/DriveKit Importer"
 
 echo "Building drivekit-importer.exe..."
 GOOS=windows GOARCH=amd64 go build -ldflags="-s -w -H=windowsgui" -o drivekit-importer.exe .
@@ -18,16 +18,16 @@ echo "Installed → $INSTALL_DIR/drivekit-importer.exe"
 
 echo "Creating shortcuts..."
 powershell.exe -NoProfile -Command "
-  \$exe  = \"\$env:LOCALAPPDATA\DriveKit\drivekit-importer.exe\"
+  \$exe  = \"\$env:LOCALAPPDATA\DriveKit Importer\drivekit-importer.exe\"
   \$shell = New-Object -ComObject WScript.Shell
 
-  \$startMenu = \"\$env:APPDATA\Microsoft\Windows\Start Menu\Programs\DriveKit.lnk\"
+  \$startMenu = \"\$env:APPDATA\Microsoft\Windows\Start Menu\Programs\DriveKit Importer.lnk\"
   \$s = \$shell.CreateShortcut(\$startMenu)
   \$s.TargetPath = \$exe
   \$s.Description = 'DriveKit Setup Importer'
   \$s.Save()
 
-  \$desktop = \"\$env:USERPROFILE\Desktop\DriveKit.lnk\"
+  \$desktop = \"\$env:USERPROFILE\Desktop\DriveKit Importer.lnk\"
   \$s = \$shell.CreateShortcut(\$desktop)
   \$s.TargetPath = \$exe
   \$s.Description = 'DriveKit Setup Importer'
